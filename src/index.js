@@ -1,15 +1,20 @@
 // Code here
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:3000/beers')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        const firstBeer = data[0];
-        displayFirstBeer(firstBeer);
-        const beers= data.beers;
-        displayBeerMenu(beers);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const firstBeer = data[0]; 
+            console.log(firstBeer);
+            const beers = data.beers; 
+            console.log(beers);
+            displayFirstBeer(firstBeer);
+            displayBeerMenu(beers);
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
 });
 
 
@@ -70,3 +75,28 @@ document.addEventListener('DOMContentLoaded',function(){
  };
 
 displayBeerMenu
+
+
+
+
+function newReview(){
+    document.addEventListener('DOMContentLoaded',function(){
+        const reviewForm = document.getElementById("review-form");
+        const reviewsTextBox = document.getElementById("review");
+
+        reviewForm.addEventListener("submit", function(e){
+            e.preventDefault();
+
+            const reviewInput = document.getElementById("review");
+            const reviewText = reviewInput.value;
+            
+            const reviewElement = document.createElement('p');
+            reviewElement.textContent = reviewText;
+
+            reviewsTextBox.appendChild(reviewElement);
+            reviewInput.value="";
+        
+    });
+})};
+
+newReview();
