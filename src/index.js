@@ -6,11 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             console.log(data);
             const firstBeer = data[0]; 
-            console.log(firstBeer);
-            const beers = data.beers; 
-            console.log(beers);
             displayFirstBeer(firstBeer);
-            displayBeerMenu(beers);
+            displayBeerMenu(data);
         })
         .catch(error => {
             console.error("Error fetching data:", error);
@@ -35,18 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
             li.textContent = review;
             ul.appendChild(li);
         });
-        reviews.appendChild(ul);
-   
- }
-
- displayFirstBeer
+        reviews.appendChild(ul);    
+ };
 
  function displayBeerMenu(beers){
-    let beerList = document.getElementsByTagName("nav");
-    beers.forEach(beer => {
-        const menuItem = createBeerMenuItem(beer);
+    let beerList = document.getElementById("beer-list");
+    for(let i = 0; i < beers.length; i++){
+        const menuItem = createBeerMenuItem(beers[i]);   
         beerList.appendChild(menuItem);
-    });
+    };
+    
+   
  }
  function createBeerMenuItem(beer){
     const menuItem = document.createElement('div');
@@ -71,32 +67,26 @@ document.addEventListener('DOMContentLoaded', function () {
     menuItem.appendChild(description);
     menuItem.appendChild(beerImage);
     menuItem.appendChild(reviewsList);
-
+    console.log(menuItem);
+    return menuItem;
+    
  };
+displayBeerMenu([]);
 
-displayBeerMenu
-
-
-
-
-function newReview(){
-    document.addEventListener('DOMContentLoaded',function(){
-        const reviewForm = document.getElementById("review-form");
-        const reviewsTextBox = document.getElementById("review");
-
-        reviewForm.addEventListener("submit", function(e){
-            e.preventDefault();
-
-            const reviewInput = document.getElementById("review");
-            const reviewText = reviewInput.value;
-            
-            const reviewElement = document.createElement('p');
-            reviewElement.textContent = reviewText;
-
-            reviewsTextBox.appendChild(reviewElement);
-            reviewInput.value="";
-        
-    });
-})};
-
-newReview();
+function newReview() {
+    const reviewForm = document.getElementById("review-form");
+  
+    reviewForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+  
+      const reviewInput = document.getElementById("review");
+      const reviewText = reviewInput.value;
+  
+        const reviewElement = document.createElement('p');
+        reviewElement.textContent = reviewText;
+  
+        reviewForm.appendChild(reviewElement);
+        reviewInput.value = "";
+      }
+    )};
+  document.addEventListener('DOMContentLoaded', newReview);
