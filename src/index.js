@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         reviews.appendChild(ul);    
  };
+ displayFirstBeer();
 
  function displayBeerMenu(beers){
     let beerList = document.getElementById("beer-list");
