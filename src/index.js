@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error("Error fetching data:", error);
         });
+        newReview();
+        newDescription();
 });
 
 
@@ -36,47 +38,23 @@ document.addEventListener('DOMContentLoaded', function () {
  };
  displayFirstBeer();
 
- function displayBeerMenu(beers){
+  function displayBeerMenu(beers){
     let beerList = document.getElementById("beer-list");
+    const ul = document.createElement('ul'); 
+    beerList.innerHTML ='';
     for(let i = 0; i < beers.length; i++){
-        const menuItem = createBeerMenuItem(beers[i]);   
-        beerList.appendChild(menuItem);
-    };
-    
-   
- }
- function createBeerMenuItem(beer){
-    const menuItem = document.createElement('div');
-    menuItem.classList.add('beer-menu-item');
+      const li= document.createElement('li');   
+      li.textContent = beers[i].name;
+        ul.appendChild(li);
+    }
+    beerList.appendChild(ul);
+};
 
-    const beerName =document.createElement('h2');
-    beerName.textContent = beer.Name;
 
-    const description = document.createElement('p');
-    description.textContent = beer.description;
-
-    const beerImage = document.createElement('img');
-    beerImage.src = beer.image_url;
-
-    const reviewsList = document.createElement('ul');
-    beer.reviews.forEach(review =>{
-        const reviewItem = document.createElement('li');
-        reviewItem. textContent = review ;
-        reviewsList.appendChild(reviewItem);
-    });
-    menuItem.appendChild(beerName);
-    menuItem.appendChild(description);
-    menuItem.appendChild(beerImage);
-    menuItem.appendChild(reviewsList);
-    console.log(menuItem);
-    return menuItem;
-    
- };
-displayBeerMenu([]);
 
 function newReview() {
+    const reviewBox = document.getElementById('review-list');
     const reviewForm = document.getElementById("review-form");
-  
     reviewForm.addEventListener("submit", function(e) {
       e.preventDefault();
   
@@ -85,9 +63,33 @@ function newReview() {
   
         const reviewElement = document.createElement('p');
         reviewElement.textContent = reviewText;
-  
-        reviewForm.appendChild(reviewElement);
         reviewInput.value = "";
+        reviewBox.appendChild(reviewElement);
+        
       }
     )};
-  document.addEventListener('DOMContentLoaded', newReview);
+
+    newReview();
+
+ function newDescription(){
+    const descriptionBox = document.getElementById('beer-description');
+    const descriptionForm = document.getElementById('description-form'); 
+    descriptionForm.addEventListener('submit',function(e){
+        e.preventDefault();
+        const descriptionInput = document.getElementById('description');
+        const descriptionText = descriptionInput.value;
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = descriptionText;
+        descriptionInput.value = " ";
+        descriptionBox.appendChild(descriptionElement);
+
+
+    });
+
+ };
+newDescription();
+
+ 
+   
+        
